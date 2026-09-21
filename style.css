@@ -1,0 +1,9 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Noto Serif TC", "PingFang TC", "Microsoft JhengHei", serif;
+    line-height: 1.9;
+    color: #2e2e2e;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 10px;
+    background: #f9f9fb;
+}
