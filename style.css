@@ -7,3 +7,160 @@ body {
     padding: 20px 10px;
     background: #f9f9fb;
 }
+
+/* 游標聚光互動效果：首頁章節卡片（邊框發光） */
+.chapter-card {
+    --glow: #d4923f;
+    position: relative;
+    isolation: isolate;
+}
+
+.chapter-card::before {
+    background: radial-gradient(var(--glow-r, 200px) var(--glow-r, 200px) at var(--mx, 50%) var(--my, 50%),
+        var(--glow), transparent 85%);
+    border-radius: 8px;
+    content: "";
+    inset: -1px;
+    opacity: var(--lit, 0);
+    padding: 2px;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity 0.3s;
+    z-index: 0;
+    -webkit-mask: linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+.chapter-card:hover {
+    box-shadow: 0 0 12px rgba(180, 115, 51, 0.35);
+}
+
+.chapter-card:focus-visible {
+    outline: 3px solid var(--glow);
+    outline-offset: 4px;
+}
+
+/* 游標聚光互動效果：章節導覽按鈕（邊框發光） */
+.btn-glow-border {
+    --glow: #d4923f;
+    position: relative;
+    isolation: isolate;
+}
+
+.btn-glow-border::before {
+    background: radial-gradient(var(--glow-r, 200px) var(--glow-r, 200px) at var(--mx, 50%) var(--my, 50%),
+        var(--glow), transparent 85%);
+    border-radius: 6px;
+    content: "";
+    inset: -1px;
+    opacity: var(--lit, 0);
+    padding: 2px;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity 0.3s;
+    z-index: 0;
+    -webkit-mask: linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+.btn-glow-border:hover {
+    box-shadow: 0 0 10px rgba(180, 115, 51, 0.35);
+}
+
+.btn-glow-border:focus-visible {
+    outline: 3px solid var(--glow);
+    outline-offset: 3px;
+}
+
+/* 游標聚光互動效果：章節導覽按鈕（內部發光） */
+.btn-glow-fill {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+.btn-glow-fill::before {
+    background: radial-gradient(var(--glow-r, 200px) circle at var(--mx, 50%) var(--my, 50%),
+        rgba(212, 146, 63, 0.35), transparent 65%);
+    content: "";
+    inset: 0;
+    opacity: var(--lit, 0);
+    pointer-events: none;
+    position: absolute;
+    transition: opacity 0.3s;
+    z-index: -1;
+}
+
+.btn-glow-fill:focus-visible {
+    outline: 3px solid #d4923f;
+    outline-offset: 3px;
+}
+
+/* Nyan Cat 點擊彩蛋：圖片素材 */
+.nyan-wrap {
+    animation: nyanRun var(--nyan-dur, 1.1s) linear forwards;
+    height: 28px;
+    left: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    width: 50px;
+    will-change: transform;
+    z-index: 9999;
+}
+
+.nyan-art {
+    animation: nyanHop 0.14s steps(2, end) infinite;
+    height: 28px;
+    position: relative;
+    transform: scaleX(var(--sx, 1));
+    width: 50px;
+}
+
+.nyan-art img {
+    display: block;
+    height: 28px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    width: 50px;
+}
+
+@keyframes nyanRun {
+    from { transform: translateX(0); }
+    to { transform: translateX(var(--dx, 400px)); }
+}
+
+@keyframes nyanHop {
+    0%, 100% { transform: translateY(0) scaleX(var(--sx, 1)); }
+    50% { transform: translateY(-3px) scaleX(var(--sx, 1)); }
+}
+
+/* 無障礙：尊重使用者減少動態偏好 */
+@media (prefers-reduced-motion: reduce) {
+    .chapter-card::before {
+        background: radial-gradient(var(--glow-r, 200px) var(--glow-r, 200px) at 50% 50%,
+            var(--glow), transparent 85%);
+        transition: none;
+    }
+
+    .btn-glow-border::before {
+        background: radial-gradient(var(--glow-r, 200px) var(--glow-r, 200px) at 50% 50%,
+            var(--glow), transparent 85%);
+        transition: none;
+    }
+
+    .btn-glow-fill::before {
+        background: radial-gradient(var(--glow-r, 200px) circle at 50% 50%,
+            rgba(212, 146, 63, 0.35), transparent 65%);
+        transition: none;
+    }
+
+    .nyan-wrap {
+        animation: none;
+        display: none;
+    }
+}
